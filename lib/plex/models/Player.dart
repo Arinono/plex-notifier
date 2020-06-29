@@ -5,6 +5,9 @@ class Player {
   String uuid;
 
   Player(Map player) {
+    if (player == null) {
+      return;
+    }
     local = player['local'];
     publicAddress = player['publicAddress'];
     title = player['title'];

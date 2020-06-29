@@ -7,14 +7,31 @@ ArgResults argResults;
 
 Future main(List<String> arguments) async {
   final parser = ArgParser()
-    ..addFlag('media',
-        negatable: true, defaultsTo: true, help: 'Enable plex media.* events.')
-    ..addFlag('library',
-        negatable: true,
-        defaultsTo: true,
-        help: 'Enable plex library.new event.');
-  parser.addFlag('help',
-      negatable: false, abbr: 'h', callback: (help) => usage(help, parser));
+    ..addFlag(
+      'media',
+      negatable: true,
+      defaultsTo: true,
+      help: 'Enable plex media.* events.',
+    )
+    ..addFlag(
+      'library',
+      negatable: true,
+      defaultsTo: true,
+      help: 'Enable plex library.new event.',
+    )
+    ..addFlag(
+      'verbose',
+      negatable: false,
+      defaultsTo: false,
+      help: 'Add more logging.',
+      abbr: 'v',
+    );
+  parser.addFlag(
+    'help',
+    negatable: false,
+    abbr: 'h',
+    callback: (help) => usage(help, parser),
+  );
   var server = Server(parser.parse(arguments));
 
   argResults = parser.parse(arguments);

@@ -72,6 +72,10 @@ class PlexController implements Controller {
       await File('images/$filename').writeAsBytes(thumb);
     }
 
+    if (args['verbose']) {
+      print('New webhook paylaod received:');
+      print('$payload\n');
+    }
     await _sendNotification(payload, filename);
   }
 

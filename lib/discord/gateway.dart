@@ -25,7 +25,6 @@ class Gateway {
 
   void eventHandler(dynamic _event) async {
     Map event = jsonDecode(_event);
-    // print(event);
 
     if ((_heartbeatSent == true && event['op'] != 11) || event['op'] == 9) {
       await _socket.close(1001);

@@ -25,7 +25,6 @@ class Notification {
   }
 
   Embed fmt() {
-    print(event);
     switch (event) {
       case 'library.new':
         return _new();
@@ -46,23 +45,27 @@ class Notification {
 
   Embed _new() {
     switch (metadata.type) {
-      case 'show':
+      case 'episode':
         return Embed.forDiscord(
-            '${metadata.grandparentTitle} has been added', metadata.summary, [
+            '${metadata.grandparentTitle ?? metadata.title} has been added',
+            metadata.summary, [
           EmbedField.from(
             'Season',
-            season,
+            season ?? 'Not provided',
             false,
           ),
           EmbedField.from(
             'Episode',
-            episode,
+            episode ?? 'Not provided',
             false,
           ),
         ]);
       default:
         return Embed.forDiscord(
-            '${metadata.grandparentTitle} has been added.', null, null);
+          '${metadata.grandparentTitle ?? metadata.title} has been added.',
+          null,
+          null,
+        );
     }
   }
 
