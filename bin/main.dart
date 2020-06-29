@@ -4,18 +4,15 @@ import 'package:plex_notifier/server.dart';
 
 Future main() async {
   var server = Server();
-  await server.start();
 
   ProcessSignal.sigint.watch().listen((signal) async {
     await server.close();
-  });
-  ProcessSignal.sigkill.watch().listen((signal) async {
-    await server.close();
+    exit(0);
   });
   ProcessSignal.sigterm.watch().listen((signal) async {
     await server.close();
+    exit(0);
   });
-  ProcessSignal.sigquit.watch().listen((signal) async {
-    await server.close();
-  });
+
+  await server.start();
 }

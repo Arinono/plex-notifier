@@ -19,7 +19,7 @@ class Gateway {
   }
 
   Future<void> close() async {
-    print('🔴 Closing Discord Gateway connection.');
+    print('\n🔴 Closing Discord Gateway connection.');
     await _socket.close(1000);
   }
 

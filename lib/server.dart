@@ -61,6 +61,7 @@ class Server {
     await _client.closeGatewayConnection();
     print('🔴 Closing HTTP server.');
     await _server.close();
+    print('Server successfully shutdown.');
   }
 
   HttpServer get server {
