@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:mime/mime.dart';
 import 'package:plex_notifier/discord/client.dart';
 import 'package:plex_notifier/plex/models/Notification.dart';
@@ -10,10 +11,11 @@ import '../server.dart';
 class PlexController implements Controller {
   final HttpRequest _req;
   final DiscordClient _client;
+  final ArgResults args;
   String _boundary;
   MimeMultipartTransformer _transformer;
 
-  PlexController(this._req, this._client, String guildId) {
+  PlexController(this._req, this._client, String guildId, this.args) {
     if (_req.headers.contentType.mimeType != 'multipart/form-data') {
       throw PlexException();
     }
@@ -74,11 +76,16 @@ class PlexController implements Controller {
   }
 
   Future<void> _sendNotification(Map _notif, [String filename]) async {
-    var notif = Notification(_notif).fmt();
+    var notif = Notification(_notif);
+    if ((notif.event.contains('media') && args['media'] == false) ||
+        (notif.event.contains('library') && args['library'] == false)) {
+      return;
+    }
+    var str = notif.fmt();
 
     await _client.getChannels();
-    if (notif != null) {
-      await _client.createMessage(notif, filename);
+    if (str != null) {
+      await _client.createMessage(str, filename);
     }
   }
 }

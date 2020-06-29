@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:plex_notifier/discord/controller.dart';
 
 import 'discord/client.dart';
@@ -7,13 +8,14 @@ import 'images/controller.dart';
 import 'plex/controller.dart';
 
 class Server {
+  final ArgResults args;
   int _port;
   HttpServer _server;
   String _guildId;
   DiscordClient _client;
   String _hostUrl;
 
-  Server() {
+  Server(this.args) {
     var port = Platform.environment['PORT'] ?? '8080';
     _port = int.tryParse(port) ?? 8080;
 
@@ -38,7 +40,7 @@ class Server {
 
     await for (HttpRequest req in _server) {
       try {
-        var controller = Controller(req, _client, _guildId);
+        var controller = Controller(req, _client, _guildId, args);
         await controller.execute();
       } on RouteNotFoundException {
         req.response.statusCode = 404;
@@ -72,10 +74,11 @@ class Server {
 abstract class Controller {
   Future<void> execute();
 
-  factory Controller(HttpRequest _req, DiscordClient _client, String _guildId) {
+  factory Controller(HttpRequest _req, DiscordClient _client, String _guildId,
+      ArgResults args) {
     switch (_req.uri.toString()) {
       case '/plex':
-        return PlexController(_req, _client, _guildId);
+        return PlexController(_req, _client, _guildId, args);
       case '/discord':
         return DiscordController(_req, _client);
       default:
