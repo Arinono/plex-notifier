@@ -37,6 +37,8 @@ class Notification {
         return _control('Paused');
       case 'media.stop':
         return _control('Stopped');
+      case 'media.scrobble':
+        return _control('Finished');
       default:
         return null;
     }
