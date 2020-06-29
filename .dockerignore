@@ -1,0 +1,11 @@
+.dart_tool
+.vscode
+tests
+.dart_tool
+.vscode
+build
+/images/
+test
+.gitignore
+CHANGELOG.md
+README.md
