@@ -22,3 +22,18 @@ jobs:
           release_name: Version ${{ github.ref }}
           draft: true
           prerelease: false
+      - name: Login to Docker HUB
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWD
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWD: ${{ secrets.DOCKER_PASSWD }}
+      - name: Build Docker image
+        run: d build --build-arg DISCORD_BOT_TOKEN="$DISCORD_BOT_TOKEN" --build-arg DISCORD_CLIENT_ID="$DISCORD_CLIENT_ID" -t arinono/plex-notifier -t arinono/plex-notifier:$TAG .
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+          TAG: ${{ github.ref }}
+      - name: Push Docker image
+        run: docker push arinono/plex-notifier arinono/plex-notifier:$TAG
+        env:
+          TAG: ${{ github.ref }}
