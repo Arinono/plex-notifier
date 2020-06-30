@@ -1,3 +1,14 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [1.0.1](https://github.com/Arinono/plex-notifier/compare/1.0.0...1.0.1) (2020-06-30)
+
+
+### Bug Fixes
+
+* **docker:** install curl final docker image for healthcheck ([ce18135](https://github.com/Arinono/plex-notifier/commit/ce18135f2dae4f3261c7f1cbc45fe596e3e0f8a8))
+
 # 1.0.0 (2020-06-30)
 
 
@@ -12,6 +23,3 @@
 * **plex-notif:** add media.scrobble event handler ([6a0d8d2](https://github.com/Arinono/plex-notifier/commit/6a0d8d2695a01f0ca0693e531b65e2854fee561c))
 * **plex-notif:** add support for library.new event ([0fc575b](https://github.com/Arinono/plex-notifier/commit/0fc575b39a706a45cff39266ede7b62cd5e2267d))
 * send discord notification when plex webhook event is fired ([09daa0b](https://github.com/Arinono/plex-notifier/commit/09daa0b5e92236fc1d9fb8762b493434b2433ef2))
-
-
-
