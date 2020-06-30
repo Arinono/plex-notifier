@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:plex_notifier/credentials.dart';
 
 class Gateway {
   BotGateway _gateway;
@@ -69,7 +68,8 @@ class Gateway {
       jsonEncode({
         'op': 2,
         'd': {
-          'token': Credentials.botToken,
+          'token': const String.fromEnvironment('DISCORD_BOT_TOKEN',
+              defaultValue: null),
           'properties': {
             '\$os': Platform.operatingSystem,
             '\$browser': 'plex_notifier',

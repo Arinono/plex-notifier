@@ -1,8 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as Http;
-import 'package:plex_notifier/credentials.dart';
 import 'package:plex_notifier/discord/gateway.dart';
 import 'package:plex_notifier/models/Channel.dart';
 import 'package:plex_notifier/models/Embed.dart';
@@ -17,7 +17,10 @@ class DiscordClient {
   List<Channel> channels;
 
   DiscordClient(this._guildId, this._hostUrl) {
-    _headers.putIfAbsent('Authorization', () => 'Bot ${Credentials.botToken}');
+    _headers.putIfAbsent(
+        'Authorization',
+        () =>
+            'Bot ${const String.fromEnvironment('DISCORD_BOT_TOKEN', defaultValue: null)}');
   }
 
   Future<List<Channel>> getChannels() async {

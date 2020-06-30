@@ -32,6 +32,17 @@ Future main(List<String> arguments) async {
     abbr: 'h',
     callback: (help) => usage(help, parser),
   );
+
+  if (const String.fromEnvironment('DISCORD_BOT_TOKEN', defaultValue: null) ==
+      null) {
+    print('DISCORD_BOT_TOKEN environment variable is required.');
+    exit(1);
+  }
+  if (const String.fromEnvironment('DISCORD_CLIENT_ID', defaultValue: null) ==
+      null) {
+    print('DISCORD_CLIENT_ID environment variable is required.');
+    exit(1);
+  }
   var server = Server(parser.parse(arguments));
 
   argResults = parser.parse(arguments);

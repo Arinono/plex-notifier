@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:args/args.dart';
 import 'package:plex_notifier/discord/controller.dart';
+import 'package:plex_notifier/healthcheck/controller.dart';
 
 import 'discord/client.dart';
 import 'images/controller.dart';
@@ -16,8 +18,8 @@ class Server {
   String _hostUrl;
 
   Server(this.args) {
-    var port = Platform.environment['PORT'] ?? '8080';
-    _port = int.tryParse(port) ?? 8080;
+    var port = const String.fromEnvironment('PORT', defaultValue: '80');
+    _port = int.tryParse(port) ?? 80;
 
     _guildId = Platform.environment['DISCORD_GUILD_ID'];
     if (_guildId == null) {
@@ -35,7 +37,9 @@ class Server {
   }
 
   Future start() async {
-    _server = await HttpServer.bind(InternetAddress.loopbackIPv4, _port);
+    _server = await HttpServer.bind(
+        InternetAddress.fromRawAddress(Uint8List.fromList([0, 0, 0, 0])),
+        _port);
     print('🚀 Listening on localhost:${_port}');
 
     await for (HttpRequest req in _server) {
@@ -81,6 +85,8 @@ abstract class Controller {
         return PlexController(_req, _client, _guildId, args);
       case '/discord':
         return DiscordController(_req, _client);
+      case '/health':
+        return HealthcheckController(_req);
       default:
         if (_req.uri.toString().startsWith('/images')) {
           return ImagesController(_req);

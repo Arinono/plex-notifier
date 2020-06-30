@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:plex_notifier/credentials.dart';
 import 'package:plex_notifier/discord/client.dart';
 import 'package:plex_notifier/server.dart';
 
@@ -20,7 +19,8 @@ class DiscordController implements Controller {
 
     await _req.response.redirect(
       Uri.https('discord.com', '/api/oauth2/authorize', {
-        'client_id': Credentials.clientId,
+        'client_id': const String.fromEnvironment('DISCORD_CLIENT_ID',
+            defaultValue: null),
         'permissions': _permissions,
         'scope': _scope
       }),
