@@ -1,3 +1,7 @@
+![Build](https://github.com/Arinono/plex-notifier/workflows/Build/badge.svg)
+
+---
+
 # Plex Notifier
 
 Small program to send Discord notifications when plex webhook sends events.
