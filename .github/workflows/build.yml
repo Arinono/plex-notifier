@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build Docker image
-        run: docker build --build-arg DISCORD_BOT_TOKEN="$DISCORD_BOT_TOKEN" --build-arg DISCORD_CLIENT_ID="$DISCORD_CLIENT_ID" .
+        run: docker build --build-arg DISCORD_BOT_TOKEN="$DISCORD_BOT_TOKEN" --build-arg DISCORD_CLIENT_ID="$DISCORD_CLIENT_ID" -f .github/docker/Dockerfile.build .
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
