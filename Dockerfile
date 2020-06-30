@@ -14,6 +14,8 @@ RUN dart2native -DPORT="5000" -DDISCORD_CLIENT_ID=${DISCORD_CLIENT_ID} -DDISCORD
 
 FROM ubuntu:xenial
 
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y curl
 COPY --from=dart-runtime /app/build/server /server
 
 # Used if i'd like to use a smaller image, such as alpine or scratch
