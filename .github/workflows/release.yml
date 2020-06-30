@@ -7,6 +7,7 @@ on:
 
 jobs:
   draft-release:
+    timeout-minutes: 10
     name: Draft release
     runs-on: ubuntu-latest
     steps:

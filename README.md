@@ -108,9 +108,9 @@ $> docker build --build-arg DISCORD_BOT_TOKEN="<your-discord-bot-token>" --build
 
 Todo:
 - [x] Automate release process and release the v1.0.0
+- [ ] Error managment coming from Discord (gateway error reconnect and resume connection on error)
 - [ ] Write some tests and add CI pipelines
 - [ ] Document the code
-- [ ] Error managment coming from Discord (gateway error reconnect and resume connection on error)
 
 Ideas:
 - [ ] Maybe add support for other tools (slack, ...)

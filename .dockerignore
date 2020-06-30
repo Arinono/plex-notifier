@@ -9,3 +9,6 @@ test
 .gitignore
 CHANGELOG.md
 README.md
+.github
+package.json
+coverage

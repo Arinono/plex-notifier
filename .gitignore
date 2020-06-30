@@ -11,3 +11,4 @@ doc/api/
 /images/
 .vscode
 .DS_Store
+coverage

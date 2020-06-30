@@ -1,11 +1,11 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as Http;
 import 'package:plex_notifier/discord/gateway.dart';
-import 'package:plex_notifier/models/Channel.dart';
-import 'package:plex_notifier/models/Embed.dart';
+
+import 'models/Channel.dart';
+import 'models/Embed.dart';
 
 class DiscordClient {
   final String _guildId;

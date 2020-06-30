@@ -1,4 +1,4 @@
-import 'package:plex_notifier/models/Embed.dart';
+import 'package:plex_notifier/discord/models/Embed.dart';
 import 'package:plex_notifier/plex/models/Metadata.dart';
 import 'package:plex_notifier/plex/models/Player.dart';
 

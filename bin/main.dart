@@ -36,12 +36,12 @@ Future main(List<String> arguments) async {
   if (const String.fromEnvironment('DISCORD_BOT_TOKEN', defaultValue: null) ==
       null) {
     print('DISCORD_BOT_TOKEN environment variable is required.');
-    exit(1);
+    throw MissingEnvironmentVariableException();
   }
   if (const String.fromEnvironment('DISCORD_CLIENT_ID', defaultValue: null) ==
       null) {
     print('DISCORD_CLIENT_ID environment variable is required.');
-    exit(1);
+    throw MissingEnvironmentVariableException();
   }
   var server = Server(parser.parse(arguments));
 
@@ -64,4 +64,8 @@ void usage(bool help, ArgParser parser) {
     print(parser.usage);
     exit(0);
   }
+}
+
+class MissingEnvironmentVariableException implements Exception {
+  MissingEnvironmentVariableException();
 }
