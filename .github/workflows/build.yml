@@ -1,0 +1,18 @@
+name: 'Build'
+
+on: [push]
+
+jobs:
+  build:
+    name: Build project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Pull dependencies
+        run: pub get
+      - name: Build executable
+        run: dart2native -DDISCORD_CLIENT_ID="$DISCORD_CLIENT_ID" -DDISCORD_BOT_TOKEN="$DISCORD_BOT_TOKEN" bin/main.dart -o build/server
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
