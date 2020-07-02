@@ -73,7 +73,7 @@ class PlexController implements Controller {
     }
 
     if (args['verbose']) {
-      print('New webhook paylaod received:');
+      print('New webhook payload received:');
       print('$payload\n');
     }
     await _sendNotification(payload, filename);
