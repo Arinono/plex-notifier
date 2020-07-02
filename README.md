@@ -1,4 +1,4 @@
-![Build](https://github.com/Arinono/plex-notifier/workflows/Build/badge.svg)
+[![Build](https://github.com/Arinono/plex-notifier/workflows/Build/badge.svg)](https://github.com/Arinono/plex-notifier/actions?query=workflow%3ABuild) [![Version](https://img.shields.io/docker/v/arinono/plex-notifier)](https://hub.docker.com/r/arinono/plex-notifier)
 
 ---
 
