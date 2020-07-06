@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:http/http.dart' as Http;
+import 'package:http/http.dart' as http;
 import 'package:plex_notifier/discord/gateway.dart';
 
 import 'models/Channel.dart';
@@ -23,7 +23,7 @@ class DiscordClient {
   }
 
   Future<List<Channel>> getChannels() async {
-    var response = await Http.get(
+    var response = await http.get(
       '$_baseUrl/guilds/$_guildId/channels',
       headers: _headers,
     );
@@ -44,7 +44,7 @@ class DiscordClient {
     if (plexChannel == null) {
       var headers = _headers;
       headers.putIfAbsent('Content-Type', () => 'application/json');
-      var response = await Http.post(
+      var response = await http.post(
         '$_baseUrl/guilds/$_guildId/channels',
         headers: headers,
         body: jsonEncode({
@@ -68,7 +68,13 @@ class DiscordClient {
       content.thumbnail =
           EmbedThumbnail.from('$_hostUrl/images/$file', null, null);
     }
-    await Http.post(
+
+    await getChannels();
+    if (plexChannel == null) {
+      return;
+    }
+
+    await http.post(
       '$_baseUrl/channels/${plexChannel.id}/messages',
       headers: headers,
       body: jsonEncode({'embed': content}),
@@ -93,7 +99,7 @@ class DiscordClient {
   }
 
   Future<BotGateway> getGateway() async {
-    var response = await Http.get('$_baseUrl/gateway/bot', headers: _headers);
+    var response = await http.get('$_baseUrl/gateway/bot', headers: _headers);
     return BotGateway(jsonDecode(response.body));
   }
 

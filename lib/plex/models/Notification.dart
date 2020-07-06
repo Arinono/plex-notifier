@@ -44,6 +44,16 @@ class Notification {
   }
 
   Embed _new() {
+    /**
+     * I need to use the debouncer here to get the recuring shows.
+     * 
+     * Also the fmt() methods as to become a Future/Completer and wait for
+     * the timeout to solve the future
+     * 
+     * It will send an Embed for a single episode or multiple shows.
+     */
+
+    print('Metadata type debug for #3: ${metadata.type}');
     switch (metadata.type) {
       case 'episode':
         return Embed.forDiscord(

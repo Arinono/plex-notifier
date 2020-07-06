@@ -86,11 +86,10 @@ class PlexController implements Controller {
         notif.metadata == null) {
       return;
     }
-    var str = notif.fmt();
+    var content = notif.fmt();
 
-    await _client.getChannels();
-    if (str != null) {
-      await _client.createMessage(str, filename);
+    if (content != null) {
+      await _client.createMessage(content, filename);
     }
   }
 }
