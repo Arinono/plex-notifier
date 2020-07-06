@@ -18,10 +18,10 @@ class Notification {
     event = notif['event'];
     user = notif['user'];
     owner = notif['owner'];
-    account = Account(notif['Account']);
-    server = Server(notif['Server']);
-    player = Player(notif['Player']);
-    metadata = Metadata(notif['Metadata']);
+    account = notif['Account'] != null ? Account(notif['Account']) : null;
+    server = notif['Server'] != null ? Server(notif['Server']) : null;
+    player = notif['Player'] != null ? Player(notif['Player']) : null;
+    metadata = notif['Metadata'] != null ? Metadata(notif['Metadata']) : null;
   }
 
   Embed fmt() {

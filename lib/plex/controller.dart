@@ -82,7 +82,8 @@ class PlexController implements Controller {
   Future<void> _sendNotification(Map _notif, [String filename]) async {
     var notif = Notification(_notif);
     if ((notif.event.contains('media') && args['media'] == false) ||
-        (notif.event.contains('library') && args['library'] == false)) {
+        (notif.event.contains('library') && args['library'] == false) ||
+        notif.metadata == null) {
       return;
     }
     var str = notif.fmt();
