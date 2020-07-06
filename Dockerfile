@@ -26,6 +26,7 @@ COPY --from=dart-runtime /app/build/server /server
 # COPY --from=dart-runtime /lib/x86_64-linux-gnu/libpthread.so.0 /lib/x86_64-linux-gnu/libpthread.so.0
 # COPY --from=dart-runtime /lib/x86_64-linux-gnu/libdl.so.2 /lib/x86_64-linux-gnu/libdl.so.2
 # COPY --from=dart-runtime /lib/x86_64-linux-gnu/librt.so.1 /lib/x86_64-linux-gnu/librt.so.1
+# RUN apk add --no-cache curl
 
 CMD []
 ENTRYPOINT [ "/server" ]

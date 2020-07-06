@@ -25,9 +25,11 @@ class Channel {
     type = channel['type'];
     guildId = channel['guild_id'];
     position = channel['position'];
-    permissionOverwrites = (channel['permission_overwrites'] as List)
-        .map((e) => Overwrite(e))
-        .toList();
+    permissionOverwrites = channel['permission_overwrites'] != null
+        ? (channel['permission_overwrites'] as List)
+            .map((e) => Overwrite(e))
+            .toList()
+        : null;
     name = channel['name'];
     topic = channel['topic'];
     nsfw = channel['nsfw'];

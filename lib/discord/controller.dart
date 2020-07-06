@@ -1,15 +1,14 @@
+import 'dart:async';
 import 'dart:io';
 
-import 'package:plex_notifier/discord/client.dart';
 import 'package:plex_notifier/server.dart';
 
 class DiscordController implements Controller {
   final HttpRequest _req;
   final String _permissions = '35856';
   final String _scope = 'bot';
-  final DiscordClient _client;
 
-  DiscordController(this._req, this._client);
+  DiscordController(this._req);
 
   @override
   Future<void> execute() async {
@@ -25,7 +24,5 @@ class DiscordController implements Controller {
         'scope': _scope
       }),
     );
-    await _client.getChannels();
-    await _client.createPlexChannel();
   }
 }
