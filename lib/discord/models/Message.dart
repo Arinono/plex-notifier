@@ -39,15 +39,24 @@ class Message {
     editedTimestamp = msg['edited_timestamp'];
     tts = msg['tts'];
     mentionEveryone = msg['mention_everyone'];
-    mentions = (msg['mentions'] as List).map((e) => User(e)).toList();
+    mentions = msg['mentions'] != null
+        ? (msg['mentions'] as List).map((e) => User(e)).toList()
+        : null;
     mentionRoles = msg['mention_roles'];
-    mentionChannels = (msg['mention_channels'] as List)
-        .map((e) => ChannelMention(e))
-        .toList();
-    attachments =
-        (msg['attachments'] as List).map((e) => Attachment(e)).toList();
-    embeds = (msg['embeds'] as List).map((e) => Embed(e)).toList();
-    reactions = (msg['reactions'] as List).map((e) => Reaction(e)).toList();
+    mentionChannels = msg['mention_channels'] != null
+        ? (msg['mention_channels'] as List)
+            .map((e) => ChannelMention(e))
+            .toList()
+        : null;
+    attachments = msg['attachments'] != null
+        ? (msg['attachments'] as List).map((e) => Attachment(e)).toList()
+        : null;
+    embeds = msg['embeds'] != null
+        ? (msg['embeds'] as List).map((e) => Embed(e)).toList()
+        : null;
+    reactions = msg['reactions'] != null
+        ? (msg['reactions'] as List).map((e) => Reaction(e)).toList()
+        : null;
     nance = msg['nance'];
     pinned = msg['pinned'];
     webhookId = msg['webhook_id'];

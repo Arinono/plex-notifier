@@ -13,8 +13,7 @@ class DiscordClient {
   final String _baseUrl = 'https://discord.com/api';
   final Map<String, String> _headers = HashMap();
   Gateway _gateway;
-
-  List<Channel> channels;
+  final List<Channel> _channels = <Channel>[];
 
   DiscordClient(this._guildId, this._hostUrl) {
     _headers.putIfAbsent(
@@ -29,9 +28,16 @@ class DiscordClient {
       headers: _headers,
     );
 
-    channels =
-        (jsonDecode(response.body) as List).map((c) => Channel(c)).toList();
-    return channels;
+    var body = jsonDecode(response.body);
+    if (!(body is List) && body['code'] != null) {
+      throw body['message'];
+    }
+
+    for (final c in body) {
+      _channels.add(Channel(c));
+    }
+
+    return _channels;
   }
 
   Future<Channel> createPlexChannel() async {
@@ -49,7 +55,7 @@ class DiscordClient {
       );
 
       var channel = Channel(jsonDecode(response.body));
-      channels.add(channel);
+      _channels.add(channel);
       return channel;
     }
     return plexChannel;
@@ -71,7 +77,12 @@ class DiscordClient {
 
   Future<void> connectToGateway() async {
     var _botGateway = await getGateway();
-    _gateway = Gateway(_botGateway);
+    _gateway = Gateway(_botGateway, _guildId, () async {
+      await getChannels().catchError(
+          (err) => print('DiscordClient::connectToGateway::getChannels: $err'));
+      await createPlexChannel().catchError((err) =>
+          print('DiscordClient::connectToGateway::createPlexChannel: $err'));
+    });
     return await _gateway.connect();
   }
 
@@ -87,10 +98,10 @@ class DiscordClient {
   }
 
   Channel get plexChannel {
-    if (channels == null) {
+    if (_channels == null) {
       return null;
     }
-    return channels.firstWhere(
+    return _channels.firstWhere(
       (Channel c) =>
           c.type == ChannelTypes.GUILD_TEXT.index && c.name == 'plex',
       orElse: () => null,

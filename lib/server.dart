@@ -84,7 +84,7 @@ abstract class Controller {
       case '/plex':
         return PlexController(_req, _client, _guildId, args);
       case '/discord':
-        return DiscordController(_req, _client);
+        return DiscordController(_req);
       case '/health':
         return HealthcheckController(_req);
       default:

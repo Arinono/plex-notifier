@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Embed {
   String title;
   String type;
@@ -26,7 +28,9 @@ class Embed {
     video = EmbedVideo(embed['video']);
     provider = EmbedProvider(embed['provider']);
     author = EmbedAuthor(embed['author']);
-    fields = (embed['fields'] as List).map((f) => EmbedField(f)).toList();
+    fields = embed['fields'] != null
+        ? (embed['fields'] as List).map((f) => EmbedField(f)).toList()
+        : null;
   }
 
   Embed.forDiscord(this.title, this.description, this.fields) {

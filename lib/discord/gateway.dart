@@ -2,13 +2,17 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:plex_notifier/discord/models/Guild.dart';
+import 'package:plex_notifier/discord/models/GuildMember.dart';
+
 class Gateway {
+  final String _guildId;
   BotGateway _gateway;
   WebSocket _socket;
   bool _heartbeatSent = false;
-  bool ready = false;
+  final Function _createChannelCallback;
 
-  Gateway(BotGateway gateway) {
+  Gateway(BotGateway gateway, this._guildId, this._createChannelCallback) {
     _gateway = gateway;
   }
 
@@ -27,10 +31,11 @@ class Gateway {
 
     if ((_heartbeatSent == true && event['op'] != 11) || event['op'] == 9) {
       await _socket.close(1001);
-      // TODO reconnect and attempt to resume then throw if not possible
+      // TODO reconnect and attempt to resume then throw if not possibledis
       throw GatewayHeartbeatException();
     }
 
+    // print(event);
     switch (event['op']) {
       case 10:
         heartbeating(event['d']['heartbeat_interval']);
@@ -40,13 +45,35 @@ class Gateway {
         _heartbeatSent = false;
         break;
       case 0:
-        if (event['t'] == 'READY') {
-          ready = true;
-          print('🔗 Discord Gateway connection ready.');
-        }
+        _opZeroHandler(event);
         break;
       case 2:
       default:
+        break;
+    }
+  }
+
+  void _opZeroHandler(Map<String, dynamic> event) async {
+    switch (event['t']) {
+      case 'READY':
+        print('🔗 Discord Gateway connection ready.');
+        break;
+      case 'GUILD_CREATE':
+        Guild guild;
+        try {
+          guild = Guild(event['d']);
+          if (guild.members.indexWhere((GuildMember m) =>
+                      m.user.username == 'Plex' && m.user.bot == true) !=
+                  -1 &&
+              guild.id == _guildId) {
+            await _createChannelCallback();
+          }
+        } catch (e) {
+          print('\n🔴 Closing Discord Gateway with error:');
+          print(e);
+          await _socket.close(1001);
+          rethrow;
+        }
         break;
     }
   }
