@@ -1,11 +1,11 @@
-name: 'Tests'
+name: Tests
  
 on: [push]
  
 jobs:
   tests:
     timeout-minutes: 5
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
     container:
       image:  google/dart:2.8
     steps:

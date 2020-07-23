@@ -1,11 +1,10 @@
-name: 'Build'
+name: Build
 
 on: [push]
 
 jobs:
   build:
     timeout-minutes: 5
-    name: Build project
     runs-on: ubuntu-latest
     container:
       image:  google/dart:2.8
