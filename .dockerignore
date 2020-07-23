@@ -5,7 +5,6 @@ tests
 .vscode
 build
 /images/
-test
 .gitignore
 CHANGELOG.md
 README.md

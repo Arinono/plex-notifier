@@ -1,71 +1,76 @@
+/// # Plex Metadata
+///
+/// Represents the `Account` value sent inside
+/// a Plex Webhook payload.
 class Metadata {
+  /// Type of the content:
+  ///
+  /// `show`, `episode`, `track`, ...
   String type;
 
-  int librarySectionID;
-  String librarySectionType;
+  /// Title of the episode.
+  String title;
 
-  String ratingKey;
-  int ratingCount;
+  /// Title of the season.
+  String parentTitle;
 
-  String key;
-  String grandparentKey;
-  String parentKey;
-  String parentRatingKey;
-  String grandparentRatingKey;
+  /// Title of the show.
+  String grandparentTitle;
 
+  /// UID of the episode.
   String guid;
+
+  /// UID of the season.
   String parentGuid;
+
+  /// UID of the show.
   String grandparentGuid;
 
-  String title;
-  String grandparentTitle;
-  String parentTitle;
-  String contentRating;
-
+  /// Summary of the episode.
   String summary;
 
-  int index;
-  int parentIndex;
-
-  int year;
-
+  /// Summary of the episode.
   String thumb;
-  String art;
-  String parentThumb;
-  String grandparentThumb;
-  String grandparentArt;
 
-  int addedAt;
-  int updatedAt;
+  /// Constructs the `Metadata` with the given content.
+  Metadata(
+    this.type,
+    this.title,
+    this.parentTitle,
+    this.grandparentTitle,
+    this.guid,
+    this.parentGuid,
+    this.grandparentGuid,
+    this.summary,
+    this.thumb,
+  );
 
-  Metadata(Map meta) {
-    type = meta['type'];
-    librarySectionID = meta['librarySectionID'];
-    librarySectionType = meta['librarySectionType'];
-    ratingKey = meta['ratingKey'];
-    ratingCount = meta['ratingCount'];
-    key = meta['key'];
-    grandparentKey = meta['grandparentKey'];
-    parentKey = meta['parentKey'];
-    parentRatingKey = meta['parentRatingKey'];
-    grandparentRatingKey = meta['grandparentRatingKey'];
-    guid = meta['guid'];
-    parentGuid = meta['parentGuid'];
-    grandparentGuid = meta['grandparentGuid'];
-    title = meta['title'];
-    grandparentTitle = meta['grandparentTitle'];
-    parentTitle = meta['parentTitle'];
-    contentRating = meta['contentRating'];
-    summary = meta['summary'];
-    index = meta['index'];
-    parentIndex = meta['parentIndex'];
-    year = meta['year'];
-    thumb = meta['thumb'];
-    art = meta['art'];
-    parentThumb = meta['parentThumb'];
-    grandparentThumb = meta['grandparentThumb'];
-    grandparentArt = meta['grandparentArt'];
-    addedAt = meta['addedAt'];
-    updatedAt = meta['updatedAt'];
+  /// Constructs the `Metadata` with the content
+  /// of the Plex Webhook JSON blob.
+  Metadata.fromJson(Map<String, dynamic> payload) {
+    type = payload['type'];
+    title = payload['title'];
+    parentTitle = payload['parentTitle'];
+    grandparentTitle = payload['grandparentTitle'];
+    guid = payload['guid'];
+    parentGuid = payload['parentGuid'];
+    grandparentGuid = payload['grandparentGuid'];
+    summary = payload['summary'];
+    thumb = payload['thumb'];
+  }
+
+  /// Returns a JSON blob for the `Metadata`.
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'title': title,
+      'parentTitle': parentTitle,
+      'grandparentTitle': grandparentTitle,
+      'guid': guid,
+      'parentGuid': parentGuid,
+      'grandparentGuid': grandparentGuid,
+      'summary': summary,
+      'thumb': thumb,
+    };
   }
 }
