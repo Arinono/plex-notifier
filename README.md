@@ -57,10 +57,10 @@ Hit this URL `http://<your-server-ip>/discord` in your browser, this will redire
 ## Starting the notifier
 
 **REQUIRED ENVIRONMENT VARIABLES:**
-- **HOST_URL**: Points to this program. This is used by Discord to get posters, hosted here in `/images`.
-- **DISCORD_GUILD_ID**: Is your Discord Guild ID.
+- **SELF_DOMAIN**: Points to this program. This is used by Discord to get posters, hosted here in `/images`.
+- **DISCORD_CHANNEL_ID**: Is your Discord Channel ID.
 
-You can find it by right-clicking on your discord server, then:
+You can find it by right-clicking on your discord channel, then:
 
 ![Discord Guild ID](.github/readme-assets/discord-guild-id.png?raw=true "Discord Guild ID")
 
@@ -78,7 +78,7 @@ $> server -h
 ### Using Docker image:
 
 ```bash
-$> docker run -e DISCORD_GUILD_ID="<your-guild-id>" -e HOST_URL="http(s)://<your-server-ip>" -p 8080:5000 arinono/plex-notifier [arguments]
+$> docker run -e DISCORD_CHANNEL_ID="<your-channel-id>" -e SELF_DOMAIN="http(s)://<your-server-ip>" -p 8080:8080 arinono/plex-notifier [arguments]
 ```
 
 ### Manually
@@ -92,14 +92,23 @@ _Coming soon, I need to add binary to releases._
 If you want to start the project locally, or build it to use your own Discord bot you can:
 
 ```bash
+# Run all the tests with coverage
+$> DISABLE_NOTIFIER=true DISCORD_CHANNEL_ID="<your-channel-id>" DISCORD_CLIENT_ID="<your-client-id>" DISCORD_BOT_TOKEN="<your-bot-token>" derry run test-full
+
+# Run a single file
+$> DISABLE_NOTIFIER=true DISCORD_CHANNEL_ID="<your-channel-id>" DISCORD_CLIENT_ID="<your-client-id>" DISCORD_BOT_TOKEN="<your-bot-token>" derry run test -- test/<file>.dart
+
 # Start locally
-$> HOST_URL="http(s)://<your-server-ip>" DISCORD_GUILD_ID="<your-guild-id>" dart -DPORT="8080" -DDISCORD_CLIENT_ID="<your-discord-app-id>" -DDISCORD_BOT_TOKEN="<your-discord-bot-token>" bin/main.dart
+$> SELF_DOMAIN="http(s)://<your-server-ip>" DISCORD_CHANNEL_ID="<your-channel-id>" dart -DDISCORD_CLIENT_ID="<your-discord-app-id>" -DDISCORD_BOT_TOKEN="<your-discord-bot-token>" bin/main.dart
 
 # Build the executable
-$> dart2native -DPORT="5000" -DDISCORD_CLIENT_ID="<your-discord-app-id>" -DDISCORD_BOT_TOKEN="<your-discord-bot-token>" bin/main.dart -o build/server
+$> dart2native -DDISCORD_CLIENT_ID="<your-discord-app-id>" -DDISCORD_BOT_TOKEN="<your-discord-bot-token>" bin/main.dart -o build/server
 
 # or build the Docker image
-$> docker build --build-arg DISCORD_BOT_TOKEN="<your-discord-bot-token>" --build-arg DISCORD_CLIENT_ID="<your-discord-app-id>" -t <your-tag> .
+$> docker build --build-arg DISCORD_BOT_TOKEN="<your-discord-bot-token>" --build-arg DISCORD_CLIENT_ID="<your-discord-app-id>" -t <image-name> .
+
+# Run the docker image
+$> docker run -e SELF_DOMAIN="http(s)://<your-server-ip>" -e DISCORD_CHANNEL_ID="<your-channel-id>" -p 8080:8080 <image-name> [args]
 ```
 
 ---
