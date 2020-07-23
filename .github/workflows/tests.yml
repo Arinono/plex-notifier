@@ -1,0 +1,27 @@
+name: 'Tests'
+ 
+on: [push]
+ 
+jobs:
+  tests:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest  
+    container:
+      image:  google/dart:2.8
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: pub get
+    - name: Setup directories
+      run: mkdir images coverage
+    - name: Run tests with coverage
+      run: DISABLE_NOTIFIER=true DISCORD_CHANNEL_ID="$DISCORD_CHANNEL_ID" DISCORD_CLIENT_ID="$DISCORD_CLIENT_ID" DISCORD_BOT_TOKEN="$DISCORD_BOT_TOKEN" pub run test --reporter="expanded" --coverage=coverage test/* && pub run coverage:format_coverage -l -i coverage/test -o coverage/lcov.info --packages=.packages --report-on=lib
+      env: 
+        DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+        DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+    - name: Upload coverage to Codecov 
+      uses: codecov/codecov-action@v1.0.12
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        file: coverage/lcov.info

@@ -6,8 +6,8 @@ import 'package:test/test.dart';
 import 'package:plex_notifier/server/server.dart';
 import 'package:http/http.dart' as http;
 
-import 'plex_webhook_parser.dart';
 import '../bin/main.dart' as bin;
+import 'plex_webhook_parser.dart';
 
 void main() {
   group('HTTP Server\n', () {

@@ -1,6 +1,6 @@
 import 'package:plex_notifier/plex/models/plex_webhook.dart';
 
-import 'episode.dart';
+import 'package:plex_notifier/models/episode.dart';
 
 /// # Season
 ///

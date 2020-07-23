@@ -1,5 +1,5 @@
-import 'account.dart';
-import 'metadata.dart';
+import 'package:plex_notifier/plex/models/account.dart';
+import 'package:plex_notifier/plex/models/metadata.dart';
 
 /// # Plex Webhook
 ///

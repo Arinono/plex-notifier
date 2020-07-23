@@ -8,10 +8,10 @@ import 'package:plex_notifier/notification/debouncer.dart';
 import 'package:plex_notifier/plex/plex_webhook_parser.dart';
 import 'package:plex_notifier/plex/plexecutor.dart';
 
-import 'controllers/discord.dart';
-import 'controllers/healthcheck.dart';
-import 'controllers/images.dart';
-import 'controllers/plex.dart';
+import 'package:plex_notifier/server/controllers/discord.dart';
+import 'package:plex_notifier/server/controllers/healthcheck.dart';
+import 'package:plex_notifier/server/controllers/images.dart';
+import 'package:plex_notifier/server/controllers/plex.dart';
 
 class Server {
   final ArgResults args;
