@@ -10,7 +10,7 @@ RUN pub get
 COPY . .
 RUN pub get --offline
 RUN mkdir build
-RUN dart2native -DPORT="5000" -DDISCORD_CLIENT_ID=${DISCORD_CLIENT_ID} -DDISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN} bin/main.dart -o build/server
+RUN dart2native -DDISCORD_CLIENT_ID=${DISCORD_CLIENT_ID} -DDISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN} bin/main.dart -o build/server
 
 FROM ubuntu:xenial
 
