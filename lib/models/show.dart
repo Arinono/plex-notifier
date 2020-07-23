@@ -4,7 +4,7 @@ import 'dart:collection';
 import 'package:plex_notifier/plex/models/plex_webhook.dart';
 import 'package:plex_notifier/plex/plex_webhook_parser.dart';
 
-import 'season.dart';
+import 'package:plex_notifier/models/season.dart';
 
 /// # Show
 ///

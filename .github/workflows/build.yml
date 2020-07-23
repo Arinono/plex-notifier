@@ -7,11 +7,15 @@ jobs:
     timeout-minutes: 5
     name: Build project
     runs-on: ubuntu-latest
+    container:
+      image:  google/dart:2.8
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build Docker image
-        run: docker build --build-arg DISCORD_BOT_TOKEN="$DISCORD_BOT_TOKEN" --build-arg DISCORD_CLIENT_ID="$DISCORD_CLIENT_ID" -f .github/docker/Dockerfile.build .
+      - name: Install dependencies
+        run: pub get
+      - name: Build
+        run: dart2native -DDISCORD_CLIENT_ID="$DISCORD_CLIENT_ID" -DDISCORD_BOT_TOKEN="$DDISCORD_BOT_TOKEN" bin/main.dart
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import '../server.dart';
+import 'package:plex_notifier/server/server.dart';
 
 class ImagesController implements Controller {
   @override

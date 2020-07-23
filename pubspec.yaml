@@ -8,10 +8,9 @@ environment:
 
 scripts:
   test: pub run test --reporter="expanded"
-  test-full: pub run test --reporter="expanded" --coverage=coverage test/* && format_coverage -l -i coverage/test -o coverage/lcov.info --packages=.packages --report-on=lib && genhtml coverage/lcov.info -o coverage
+  test-full: pub run test --reporter="expanded" --coverage=coverage test/* && coverage:format_coverage -l -i coverage/test -o coverage/lcov.info --packages=.packages --report-on=lib && genhtml coverage/lcov.info -o coverage
 
 dependencies:
-  # path: ^1.7.0
   mime: ^0.9.6+3
   http: ^0.12.1
   args: ^1.5.0
@@ -21,3 +20,6 @@ dev_dependencies:
   test: ^1.14.4
   mockito: ^4.1.1
   http_parser: ^3.1.4
+  derry: ^0.1.1
+  coverage: ^0.14.0
+
