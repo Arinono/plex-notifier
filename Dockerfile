@@ -17,6 +17,7 @@ FROM ubuntu:xenial
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y curl
 COPY --from=dart-runtime /app/build/server /server
+RUN mkdir /images
 
 # Used if i'd like to use a smaller image, such as alpine or scratch
 # But when I do, I get this error: SocketException: Failed host lookup: 'discord.com' (OS Error: System error, errno = -11)
