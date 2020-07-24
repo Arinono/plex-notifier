@@ -1,4 +1,4 @@
-name: Draft release
+name: Release
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 jobs:
   draft-release:
     timeout-minutes: 10
-    name: Draft release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -23,16 +22,12 @@ jobs:
           release_name: Version ${{ github.ref }}
           draft: true
           prerelease: false
-      - name: Login to Docker HUB
-        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWD
-        env:
-          DOCKER_USER: ${{ secrets.DOCKER_USER }}
-          DOCKER_PASSWD: ${{ secrets.DOCKER_PASSWD }}
-      - name: Build Docker image
-        run: docker build --build-arg DISCORD_BOT_TOKEN="$DISCORD_BOT_TOKEN" --build-arg DISCORD_CLIENT_ID="$DISCORD_CLIENT_ID" -t arinono/plex-notifier -t arinono/plex-notifier:$TAG .
-        env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
-          TAG: ${{ github.ref }}
-      - name: Push Docker image
-        run: docker push arinono/plex-notifier
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v1.1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWD }}
+          repository: arinono/plex-notifier
+          tag_with_ref: true
+          tags: latest
+          build_args: DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }},DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }}
