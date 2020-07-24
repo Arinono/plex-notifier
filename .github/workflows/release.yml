@@ -6,7 +6,7 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  draft-release:
+  release:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +23,7 @@ jobs:
           draft: true
           prerelease: false
       - name: Build and push Docker image
-        uses: docker/build-push-action@v1.1
+        uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWD }}

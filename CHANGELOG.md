@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/Arinono/plex-notifier/compare/1.0.1...2.0.0) (2020-07-24)
+
+
+### Bug Fixes
+
+* **create-plex-channel:** wait for the bot to have access ([0c8c6c3](https://github.com/Arinono/plex-notifier/commit/0c8c6c356f089c322ed511472938941042967054)), closes [#5](https://github.com/Arinono/plex-notifier/issues/5)
+* **notif:** fix error when creating a notification ([a5e11f9](https://github.com/Arinono/plex-notifier/commit/a5e11f9698b46314342d1586b4e67c7b5c58725e)), closes [#2](https://github.com/Arinono/plex-notifier/issues/2)
+* **plex-controller:** fix typo ([16935e7](https://github.com/Arinono/plex-notifier/commit/16935e75267b6f0ac82d538f6c69e4cfc82cbb4b))
+
+### BREAKING CHANGES
+
+* Change **HOST_URL** environment variable to **SELF_DOMAIN**
+* Change **DISCORD_GUILD_ID** environment variable to **DISCORD_CHANNEL_ID**
+
 ### [1.0.1](https://github.com/Arinono/plex-notifier/compare/1.0.0...1.0.1) (2020-06-30)
 
 
