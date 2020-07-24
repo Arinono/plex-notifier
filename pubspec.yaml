@@ -1,6 +1,6 @@
 name: plex_notifier
 description: A sample command-line application.
-version: 2.0.1
+version: 2.0.2
 homepage: https://github.com/Arinono/plex-notifier
 
 environment:
