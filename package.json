@@ -1,6 +1,6 @@
 {
   "name": "plex-notifier",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "repository": "git@github.com:Arinono/plex-notifier.git",
   "author": "Aurelien Arino <aurelien.arino@gmail.com>",
   "license": "Apache2.0",

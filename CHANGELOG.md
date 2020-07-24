@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/Arinono/plex-notifier/compare/2.0.0...2.0.1) (2020-07-24)
+
+
+### Bug Fixes
+
+* **dockerfile:** add mkdir /images ([6fd32c4](https://github.com/Arinono/plex-notifier/commit/6fd32c418bf46fbedfaa4bd1a0411488a93a98bb))
+
 ## [2.0.0](https://github.com/Arinono/plex-notifier/compare/1.0.1...2.0.0) (2020-07-24)
 
 
