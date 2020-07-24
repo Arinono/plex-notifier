@@ -117,8 +117,9 @@ $> docker run -e SELF_DOMAIN="http(s)://<your-server-ip>" -e DISCORD_CHANNEL_ID=
 
 Todo:
 - [x] Automate release process and release the v1.0.0
+- [ ] Add flag to customise the debouncer timer
 - [ ] Error managment coming from Discord (gateway error reconnect and resume connection on error)
-- [ ] Write some tests and add CI pipelines
+- [x] Write some tests and add CI pipelines
 - [ ] Document the code
 
 Ideas:
